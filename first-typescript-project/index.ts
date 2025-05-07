@@ -1,4 +1,9 @@
 
+type Pizza = {
+    name: string,
+    price: number
+}
+
 const menu = [
     {name: "Pepperoni", price : 2.99},
     {name: "Hawaiian", price : 3.99},
@@ -8,22 +13,27 @@ const menu = [
 ]
 
 let cashInRegister = 1000.00
-const nextOrderId = 1;
+let nextOrderId = 1;
 const orderQueue = []
 
-function addNewPizza (pizzaObject) {
+function addNewPizza (pizzaObject: Pizza) {
     menu.push(pizzaObject)
 }
 
-function placeOrder (pizzaName) {
+function placeOrder (pizzaName: string) {
      const selectedPizza = menu.find(pizzaObject => pizzaObject.name === pizzaName)
+
+     if (!selectedPizza) {
+        console.log(`${pizzaName} is not in the menu`)
+        return;
+     }
      cashInRegister += selectedPizza.price
-     const newOrder = { id: nextOrderId++, pizza: selectecPizza, status: "ordered"}
+     const newOrder = { id: nextOrderId++, pizza: selectedPizza, status: "ordered"}
      orderQueue.push(newOrder)
      return newOrder;
 }
 
-function completeOrder (orderId) {
+function completeOrder (orderId: number) {
     const order = orderQueue.find(order => order.Id === orderId)
     order.status = "completed"
     return order;
@@ -33,6 +43,6 @@ addNewPizza({name: "Chiken Tikka", price: 13})
 
 placeOrder("Chicken Tikka");
 
-completeOrder("1");
+completeOrder(1);
 
-console.log("Cash In REG: ", cashInRegister);     
+console.log("Cash In Register: ", cashInRegister);
