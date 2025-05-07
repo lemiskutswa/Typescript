@@ -4,6 +4,12 @@ type Pizza = {
     price: number
 }
 
+type Order = {
+    id: number,
+    pizza: Pizza,
+    status: string
+}
+
 const menu = [
     {name: "Pepperoni", price : 2.99},
     {name: "Hawaiian", price : 3.99},
