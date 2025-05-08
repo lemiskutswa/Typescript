@@ -1,4 +1,5 @@
 
+
 type Address = {
     street: string,
     city: string,
@@ -34,3 +35,16 @@ let person2: Person = {
         country: "USA"
     }
 }
+
+let people: Person[] = [person1, person2]
+
+//Another sytax:
+
+let peoples: Array<Person> = [person1, person2]
+let age: number[] = [100, 200, 300]//Tells typescript that the array should only contain numbers. When it's a primitive data type, the (number[] is optional)
+
+
+let myName = "Bob";
+
+const myName2 = "Bob Ziroll" // This is a literal type (not just any generic string) but a 'Bob Ziroll' type string
+//In other ways its unchangeable (like in JS).
