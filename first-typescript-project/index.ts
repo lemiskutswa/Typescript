@@ -1,21 +1,23 @@
 
 type Pizza = {
+    id: number,
     name: string,
     price: number
 }
 
+
 type Order = {
     id: number,
     pizza: Pizza,
-    status: string
+    status: "ordered" | "completed"
 }
 
-const menu = [
-    {name: "Pepperoni", price : 2.99},
-    {name: "Hawaiian", price : 3.99},
-    {name: "Meat Lovers", price : 4.99},
-    {name: "Veggie", price : 3.49},
-    {name: "BBQ Chicken", price : 4.49}
+const menu: Pizza[] = [
+    {id: 1, name: "Pepperoni", price : 2.99},
+    {id: 2, name: "Hawaiian", price : 3.99},
+    {id: 3, name: "Meat Lovers", price : 4.99},
+    {id: 4, name: "Veggie", price : 3.49},
+    {id: 5, name: "BBQ Chicken", price : 4.49}
 ]
 
 let cashInRegister = 1000.00
@@ -34,7 +36,7 @@ function placeOrder (pizzaName: string) {
         return;
      }
      cashInRegister += selectedPizza.price
-     const newOrder = { id: nextOrderId++, pizza: selectedPizza, status: "ordered"}
+     const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered"}
      orderHistory.push(newOrder)
      return newOrder;
 }
@@ -50,11 +52,24 @@ function completeOrder (orderId: number) {
     return order;
 }
 
-addNewPizza({name: "Chiken Tikka", price: 13})
-addNewPizza({name: "Haawaiian", price: 3.99})
+//Utility function
 
-placeOrder("Chicken Tikka");
+function getPizzaDetails (identifier: string | number) {//Type narrowing
+    if (typeof identifier === "string") {
+        return menu.find(pizza => pizza.name.toLowerCase() ===identifier.toLowerCase())
+    } else if (typeof identifier === "number") {
+        return menu.find(pizza => pizza.id === identifier)
+    }
 
-completeOrder(1);
+    throw new TypeError ("Parameter `identifier` must either be a string or a number")
+}
+
+console.log(getPizzaDetails(1));
+// addNewPizza({id: 5, name: "Chiken Tikka", price: 13})
+// addNewPizza({id:2, name: "Haawaiian", price: 3.99})
+
+// placeOrder("Chicken Tikka");
+
+// completeOrder(1);
 
 console.log("Cash In Register: ", cashInRegister);

@@ -1,9 +1,9 @@
 var menu = [
-    { name: "Pepperoni", price: 2.99 },
-    { name: "Hawaiian", price: 3.99 },
-    { name: "Meat Lovers", price: 4.99 },
-    { name: "Veggie", price: 3.49 },
-    { name: "BBQ Chicken", price: 4.49 }
+    { id: 1, name: "Pepperoni", price: 2.99 },
+    { id: 2, name: "Hawaiian", price: 3.99 },
+    { id: 3, name: "Meat Lovers", price: 4.99 },
+    { id: 4, name: "Veggie", price: 3.49 },
+    { id: 5, name: "BBQ Chicken", price: 4.49 }
 ];
 var cashInRegister = 1000.00;
 var nextOrderId = 1;
@@ -31,8 +31,18 @@ function completeOrder(orderId) {
     order.status = "completed";
     return order;
 }
-addNewPizza({ name: "Chiken Tikka", price: 13 });
-addNewPizza({ name: "Haawaiian", price: 3.99 });
-placeOrder("Chicken Tikka");
-completeOrder(1);
+//Utility function
+function getPizzaDetails(identifier) {
+    if (typeof identifier === "string") {
+        return menu.find(function (pizza) { return pizza.name.toLowerCase() === identifier.toLowerCase(); });
+    }
+    else if (typeof identifier === "number") {
+        return menu.find(function (pizza) { return pizza.id === identifier; });
+    }
+}
+console.log(getPizzaDetails(1));
+// addNewPizza({id: 5, name: "Chiken Tikka", price: 13})
+// addNewPizza({id:2, name: "Haawaiian", price: 3.99})
+// placeOrder("Chicken Tikka");
+// completeOrder(1);
 console.log("Cash In Register: ", cashInRegister);
