@@ -1,15 +1,17 @@
+var nextPizzaId = 1;
 var menu = [
-    { id: 1, name: "Pepperoni", price: 2.99 },
-    { id: 2, name: "Hawaiian", price: 3.99 },
-    { id: 3, name: "Meat Lovers", price: 4.99 },
-    { id: 4, name: "Veggie", price: 3.49 },
-    { id: 5, name: "BBQ Chicken", price: 4.49 }
+    { id: nextPizzaId++, name: "Pepperoni", price: 2.99 },
+    { id: nextPizzaId++, name: "Hawaiian", price: 3.99 },
+    { id: nextPizzaId++, name: "Meat Lovers", price: 4.99 },
+    { id: nextPizzaId++, name: "Veggie", price: 3.49 },
+    { id: nextPizzaId++, name: "BBQ Chicken", price: 4.49 }
 ];
 var cashInRegister = 1000.00;
 var nextOrderId = 1;
 var orderHistory = [];
 function addNewPizza(pizzaObject) {
     menu.push(pizzaObject);
+    pizzaObject.id = nextPizzaId++;
 }
 function placeOrder(pizzaName) {
     var selectedPizza = menu.find(function (pizzaObject) { return pizzaObject.name === pizzaName; });
@@ -39,10 +41,14 @@ function getPizzaDetails(identifier) {
     else if (typeof identifier === "number") {
         return menu.find(function (pizza) { return pizza.id === identifier; });
     }
+    else {
+        throw new TypeError("Parameter `identifier` must either be a string or a number");
+    }
 }
-console.log(getPizzaDetails(1));
-// addNewPizza({id: 5, name: "Chiken Tikka", price: 13})
-// addNewPizza({id:2, name: "Haawaiian", price: 3.99})
+// console.log(getPizzaDetails(1));
+addNewPizza({ name: "Chiken Tikka", price: 13 });
+addNewPizza({ name: "Haawaiian", price: 3.99 });
+console.log(menu);
 // placeOrder("Chicken Tikka");
 // completeOrder(1);
-console.log("Cash In Register: ", cashInRegister);
+// console.log("Cash In Register: ", cashInRegister);

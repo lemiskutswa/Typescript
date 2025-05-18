@@ -51,15 +51,42 @@ const myName2 = "Bob Ziroll" // This is a literal type (not just any generic str
 
 //Unions + Literals
 
-type Users = {
-    name: string,
+type User = {
+    id: number
+    username: string,
     role: UserRole
 }
 
 type UserRole = "guest" | "member" | "admin";
 
 
-let user: UserRole = "admin"
+const users: User[] = [
+    { id: 1, username: "lemis_kutswa", role: "admin"}, 
+    { id: 2, username: "thomas_chamberlain", role: "guest"},
+    { id: 3, username: "jon_jones", role: "member"}
+] 
 
-//Type narrowing
+function updateUser( id: number, updates: any) {
+    const foundUser = users.find(users => users.id === id);
+
+    if (!foundUser){
+        console.error("User was not found!")
+        return;
+    }
+
+    Object.assign(foundUser, updates)
+}
+
+
+// function fetchUserDetails(username: string): User {
+//     const user = users.find(user => user.username === username);
+//     if(!user) {
+//         throw new Error(`User with ${username} was not found`)
+//     }
+    
+//     return user;
+// }
+//Return types - Adding the User type after the parameter tells typescript which data should be returned here.
+
+
 

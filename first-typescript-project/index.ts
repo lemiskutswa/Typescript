@@ -12,23 +12,25 @@ type Order = {
     status: "ordered" | "completed"
 }
 
+let nextPizzaId = 1;
 const menu: Pizza[] = [
-    {id: 1, name: "Pepperoni", price : 2.99},
-    {id: 2, name: "Hawaiian", price : 3.99},
-    {id: 3, name: "Meat Lovers", price : 4.99},
-    {id: 4, name: "Veggie", price : 3.49},
-    {id: 5, name: "BBQ Chicken", price : 4.49}
+    {id: nextPizzaId++, name: "Pepperoni", price : 2.99},
+    {id: nextPizzaId++, name: "Hawaiian", price : 3.99},
+    {id: nextPizzaId++, name: "Meat Lovers", price : 4.99},
+    {id: nextPizzaId++, name: "Veggie", price : 3.49},
+    {id: nextPizzaId++, name: "BBQ Chicken", price : 4.49}
 ]
 
 let cashInRegister = 1000.00
 let nextOrderId = 1;
 const orderHistory: Order[] = []
 
-function addNewPizza (pizzaObject: Pizza) {
+function addNewPizza (pizzaObject: Pizza): void {
+    pizzaObject.id = nextPizzaId++;
     menu.push(pizzaObject)
 }
 
-function placeOrder (pizzaName: string) {
+function placeOrder (pizzaName: string): Order | undefined {
      const selectedPizza = menu.find(pizzaObject => pizzaObject.name === pizzaName)
 
      if (!selectedPizza) {
@@ -41,7 +43,7 @@ function placeOrder (pizzaName: string) {
      return newOrder;
 }
 
-function completeOrder (orderId: number) {
+function completeOrder (orderId: number): Order | undefined {
     const order = orderHistory.find(order => order.id === orderId)
 
     if (!order) {
@@ -54,22 +56,25 @@ function completeOrder (orderId: number) {
 
 //Utility function
 
-function getPizzaDetails (identifier: string | number) {//Type narrowing
+function getPizzaDetails (identifier: string | number): Pizza | undefined {//Type narrowing
     if (typeof identifier === "string") {
-        return menu.find(pizza => pizza.name.toLowerCase() ===identifier.toLowerCase())
+        return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
     } else if (typeof identifier === "number") {
         return menu.find(pizza => pizza.id === identifier)
+    } else {
+        throw new TypeError ("Parameter `identifier` must either be a string or a number")
     }
-
-    throw new TypeError ("Parameter `identifier` must either be a string or a number")
+    
 }
 
-console.log(getPizzaDetails(1));
-// addNewPizza({id: 5, name: "Chiken Tikka", price: 13})
-// addNewPizza({id:2, name: "Haawaiian", price: 3.99})
+// console.log(getPizzaDetails(1));
+addNewPizza({ name: "Chiken Tikka", price: 13})
+addNewPizza({ name: "Haawaiian", price: 3.99})
+
+console.log(menu)
 
 // placeOrder("Chicken Tikka");
 
 // completeOrder(1);
 
-console.log("Cash In Register: ", cashInRegister);
+// console.log("Cash In Register: ", cashInRegister);
