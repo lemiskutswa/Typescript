@@ -25,7 +25,7 @@ let cashInRegister = 1000.00
 let nextOrderId = 1;
 const orderHistory: Order[] = []
 
-function addNewPizza (pizzaObject: Pizza): void {
+function addNewPizza (pizzaObject: Partial<Pizza>): void {
     pizzaObject.id = nextPizzaId++;
     menu.push(pizzaObject)
 }
@@ -68,7 +68,7 @@ function getPizzaDetails (identifier: string | number): Pizza | undefined {//Typ
 }
 
 // console.log(getPizzaDetails(1));
-addNewPizza({ name: "Chiken Tikka", price: 13})
+addNewPizza({ name: "Chiken Steak", price: 13})
 addNewPizza({ name: "Haawaiian", price: 3.99})
 
 console.log(menu)

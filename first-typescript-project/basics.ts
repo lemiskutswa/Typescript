@@ -57,16 +57,20 @@ type User = {
     role: UserRole
 }
 
+type UpdatedUser = Partial<User>
+
 type UserRole = "guest" | "member" | "admin";
+
+let nextUserId = 1;
 
 
 const users: User[] = [
-    { id: 1, username: "lemis_kutswa", role: "admin"}, 
-    { id: 2, username: "thomas_chamberlain", role: "guest"},
-    { id: 3, username: "jon_jones", role: "member"}
-] 
+    { id: nextUserId++, username: "lemis_kutswa", role: "admin"}, 
+    { id: nextUserId ++, username: "thomas_chamberlain", role: "guest"},
+    { id: nextUserId++, username: "jon_jones", role: "member"}
+]
 
-function updateUser( id: number, updates: any) {
+function updateUser( id: number, updates: UpdatedUser) {
     const foundUser = users.find(users => users.id === id);
 
     if (!foundUser){
@@ -75,6 +79,15 @@ function updateUser( id: number, updates: any) {
     }
 
     Object.assign(foundUser, updates)
+}
+
+
+function addNewUser(newUser: Omit<User, "id">): User { //type Partial<User> can't work because you return a complete user object here
+    const user: User = {
+            id: nextUserId++,
+        ...newUser}
+    users.push(user);
+    return user;
 }
 
 

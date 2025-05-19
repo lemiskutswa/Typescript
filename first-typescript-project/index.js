@@ -10,8 +10,8 @@ var cashInRegister = 1000.00;
 var nextOrderId = 1;
 var orderHistory = [];
 function addNewPizza(pizzaObject) {
-    menu.push(pizzaObject);
     pizzaObject.id = nextPizzaId++;
+    menu.push(pizzaObject);
 }
 function placeOrder(pizzaName) {
     var selectedPizza = menu.find(function (pizzaObject) { return pizzaObject.name === pizzaName; });
@@ -46,7 +46,7 @@ function getPizzaDetails(identifier) {
     }
 }
 // console.log(getPizzaDetails(1));
-addNewPizza({ name: "Chiken Tikka", price: 13 });
+addNewPizza({ name: "Chiken Steak", price: 13 });
 addNewPizza({ name: "Haawaiian", price: 3.99 });
 console.log(menu);
 // placeOrder("Chicken Tikka");
