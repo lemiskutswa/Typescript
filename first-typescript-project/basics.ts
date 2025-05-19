@@ -102,4 +102,25 @@ function addNewUser(newUser: Omit<User, "id">): User { //type Partial<User> can'
 //Return types - Adding the User type after the parameter tells typescript which data should be returned here.
 
 
+const gameScores = [14, 25, 16, 99, 78];
+const favoriteThings = ["food", "walks", "games", "hikes"];
+const voters = [
+    {name: "Alice", age: 60},
+    {name: "Bob", age: 45}
+]
+
+function getLastItem<Type>(array: Type[]): Type | undefined {
+    return array[array.length-1]
+}
+
+const game = getLastItem(gameScores);
+
+console.log(game)
+
+function addToArray <T>(array: T[], item: T): T[] | undefined {
+    array.push(item)
+    return array;
+}
+
+addToArray( {id: 1} )
 

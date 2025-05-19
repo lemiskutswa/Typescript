@@ -25,9 +25,15 @@ let cashInRegister = 1000.00
 let nextOrderId = 1;
 const orderHistory: Order[] = []
 
-function addNewPizza (pizzaObject: Partial<Pizza>): void {
-    pizzaObject.id = nextPizzaId++;
-    menu.push(pizzaObject)
+function addNewPizza (pizzaObject: Omit<Pizza, "id">) : Pizza {
+
+    const newPizza: Pizza = {
+        id: nextPizzaId,
+        ...pizzaObject
+    }
+    menu.push(newPizza)
+
+    return newPizza;
 }
 
 function placeOrder (pizzaName: string): Order | undefined {
