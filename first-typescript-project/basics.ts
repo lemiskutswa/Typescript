@@ -122,5 +122,4 @@ function addToArray <T>(array: T[], item: T): T[] | undefined {
     return array;
 }
 
-addToArray( {id: 1} )
 
